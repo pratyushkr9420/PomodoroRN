@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import TimerDisplay from './components/TimerDisplay';
 import ButtonsContainer from './components/ButtonsDisplay';
-const fullTimeinMins = 0.2 * 60 * 1000; 
+const fullTimeinMinutes = 40; 
 export default function App() {
-  const [timerCount,setTimerCount] = useState<number>(fullTimeinMins);
+  const [timerCount,setTimerCount] = useState<number>(fullTimeinMinutes);
   const [timer,setTimer] = useState<NodeJS.Timer|null>(null);
+  const [timerCountStr,setTimerCountStr] = useState<String>('');
 
   const startTimer = () => {
     const stop = setInterval(() => {
-      setTimerCount((prev) => prev - 1000)
+      setTimerCount((prev) => prev - (1/60))
     },1000)
     setTimer(stop);
   }
@@ -20,21 +21,28 @@ export default function App() {
   }
 
   const resetTimer = () => {
-    setTimerCount(fullTimeinMins);
+    setTimerCount(fullTimeinMinutes);
   }
 
   useEffect(() => {
     if(timerCount <= 0){
-      setTimerCount(fullTimeinMins);
+      setTimerCount(fullTimeinMinutes);
       clearInterval(timer);
     }
+  },[timerCount])
+
+  useEffect(() => {
+    let date = new Date(0);
+    date.setSeconds(timerCount * 60);
+    let timeString = date.toISOString().substring(11, 19);
+    setTimerCountStr(timeString);
   },[timerCount])
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.greetText}>Welcome to Pomodoro!</Text>
       </View>
-      <TimerDisplay timerCount={timerCount}/>
+      <TimerDisplay timerCount={timerCountStr}/>
       <ButtonsContainer
         startTimer={startTimer}
         stopTimer={stopTimer}

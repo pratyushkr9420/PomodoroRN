@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 type props = {
-    timerCount: number
+    timerCount: String
 };
 
 const TimerDisplay : React.FC <props> = ({ timerCount }) => {
     return (
         <View style={styles.timerContainer}>
-            <Text style={styles.timerText}>{timerCount/1000}</Text>
+            <Text style={styles.timerText}>{timerCount}</Text>
         </View>
     )
 }
