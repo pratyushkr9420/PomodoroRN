@@ -5,7 +5,7 @@ type props = {
     timerCount: String
 };
 
-const TimerDisplay : React.FC <props> = ({ timerCount }) => {
+const TimerDisplay: React.FC<props> = ({ timerCount }) => {
     return (
         <View style={styles.timerContainer}>
             <Text style={styles.timerText}>{timerCount}</Text>
@@ -17,11 +17,11 @@ export default TimerDisplay;
 
 const styles = StyleSheet.create({
     timerContainer: {
-        marginVertical:50
+        marginVertical: 50
     },
     timerText: {
-        fontSize:60,
-        fontWeight:'bold',
-        color:'white'
+        fontSize: 80,
+        fontWeight: 'bold',
+        color: 'white'
     }
 })
